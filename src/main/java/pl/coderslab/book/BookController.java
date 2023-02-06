@@ -20,7 +20,7 @@ public class BookController {
         Book book = new Book();
         book.setTitle("Thinking in Java");
         book.setDescription("Definitely worth reading");
-        bookDao.saveBook(book);
+        bookDao.save(book);
         return "Created book id: " + book.getId();
     }
 

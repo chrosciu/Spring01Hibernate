@@ -12,7 +12,7 @@ public class BookDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void saveBook(Book book) {
+    public void save(Book book) {
         entityManager.persist(book);
     }
 
