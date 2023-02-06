@@ -1,9 +1,14 @@
 package pl.coderslab.publisher;
 
+import pl.coderslab.book.Book;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -13,8 +18,9 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
     String name;
+    @OneToMany(mappedBy = "publisher")
+    List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;

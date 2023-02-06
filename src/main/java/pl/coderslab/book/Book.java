@@ -1,9 +1,13 @@
 package pl.coderslab.book;
 
+import pl.coderslab.publisher.Publisher;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,6 +22,10 @@ public class Book {
     private String title;
     private int rating;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    Publisher publisher;
 
     public Long getId() {
         return id;
@@ -47,6 +55,14 @@ public class Book {
         this.description = description;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -54,6 +70,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", publisher=" + publisher +
                 '}';
     }
 }

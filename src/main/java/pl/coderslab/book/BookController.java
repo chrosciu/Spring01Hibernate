@@ -5,23 +5,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.publisher.Publisher;
+import pl.coderslab.publisher.PublisherDao;
 
 @Controller
 public class BookController {
     private final BookDao bookDao;
+    private final PublisherDao publisherDao;
 
-    public BookController(BookDao bookDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao) {
         this.bookDao = bookDao;
+        this.publisherDao = publisherDao;
     }
 
     @GetMapping("/book/add")
     @ResponseBody
     public String addBook() {
+        Publisher publisher = new Publisher();
+        publisher.setName("Janusz Edition Ltd.");
+        publisherDao.save(publisher);
         Book book = new Book();
         book.setTitle("Thinking in Java");
         book.setDescription("Definitely worth reading");
+        book.setPublisher(publisher);
         bookDao.save(book);
-        return "Created book id: " + book.getId();
+        return book.toString();
     }
 
     @RequestMapping("/book/get/{id}")
