@@ -1,5 +1,6 @@
 package pl.coderslab.book;
 
+import pl.coderslab.author.Author;
 import pl.coderslab.publisher.Publisher;
 
 import javax.persistence.Column;
@@ -7,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -22,10 +27,14 @@ public class Book {
     private String title;
     private int rating;
     private String description;
-
     @ManyToOne
     @JoinColumn(name = "publisher_id")
     Publisher publisher;
+    @ManyToMany
+    @JoinTable(name = "books_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    List<Author> authors = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -63,6 +72,14 @@ public class Book {
         this.publisher = publisher;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -71,6 +88,7 @@ public class Book {
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
                 ", publisher=" + publisher +
+                ", authors=" + authors +
                 '}';
     }
 }

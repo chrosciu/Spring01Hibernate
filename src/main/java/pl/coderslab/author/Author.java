@@ -1,9 +1,14 @@
 package pl.coderslab.author;
 
+import pl.coderslab.book.Book;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -13,10 +18,10 @@ public class Author {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
     String firstName;
-
     String lastName;
+    @ManyToMany(mappedBy = "authors")
+    List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -36,6 +41,14 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
