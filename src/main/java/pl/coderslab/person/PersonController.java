@@ -3,7 +3,6 @@ package pl.coderslab.person;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -21,14 +20,7 @@ public class PersonController {
 
     @PostMapping("/person/add")
     @ResponseBody
-    public String addPerson(
-            @RequestParam String login,
-            @RequestParam String password,
-            @RequestParam String email) {
-        Person person = new Person();
-        person.setLogin(login);
-        person.setPassword(password);
-        person.setEmail(email);
+    public String addPerson(Person person) {
         personDao.save(person);
         return person.toString();
     }
