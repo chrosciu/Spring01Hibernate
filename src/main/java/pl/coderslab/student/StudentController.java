@@ -35,4 +35,9 @@ public class StudentController {
         return Arrays.asList("Java", "Groovy", "Kotlin", "Scala");
     }
 
+    @ModelAttribute("hobbies")
+    public List<String> hobbies() {
+        return Arrays.asList("Cycling", "Hiking", "Skiing");
+    }
+
 }

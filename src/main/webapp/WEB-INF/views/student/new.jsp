@@ -37,6 +37,10 @@
             <form:select path="programmingSkills" items="${programmingSkills}" multiple="true" />
         </p>
         <p>
+            <label for="hobbies">Hobbies</label>
+            <form:checkboxes items="${hobbies}" path="hobbies" />
+        </p>
+        <p>
             <input type="submit">
         </p>
     </form:form>

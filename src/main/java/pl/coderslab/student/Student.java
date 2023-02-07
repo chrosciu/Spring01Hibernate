@@ -10,6 +10,7 @@ public class Student {
     private boolean mailingList;
     private String country;
     private List<String> programmingSkills;
+    private List<String> hobbies;
 
     public String getFirstName() {
         return firstName;
@@ -67,6 +68,14 @@ public class Student {
         this.programmingSkills = programmingSkills;
     }
 
+    public List<String> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<String> hobbies) {
+        this.hobbies = hobbies;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -77,6 +86,7 @@ public class Student {
                 ", mailingList=" + mailingList +
                 ", country='" + country + '\'' +
                 ", programmingSkills=" + programmingSkills +
+                ", hobbies=" + hobbies +
                 '}';
     }
 }
