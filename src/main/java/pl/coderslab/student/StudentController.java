@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class StudentController {
     @GetMapping("/student/new")
     public String newStudentForm(Model model) {
         Student student = new Student();
+        student.setId(new Random().nextLong());
         model.addAttribute("student", student);
         return "/student/new";
     }

@@ -3,6 +3,7 @@ package pl.coderslab.student;
 import java.util.List;
 
 public class Student {
+    private long id;
     private String firstName;
     private String lastName;
     private String gender;
@@ -11,6 +12,14 @@ public class Student {
     private String country;
     private List<String> programmingSkills;
     private List<String> hobbies;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -79,7 +88,8 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", notes='" + notes + '\'' +

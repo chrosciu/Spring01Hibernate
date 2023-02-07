@@ -41,6 +41,7 @@
             <form:checkboxes items="${hobbies}" path="hobbies" />
         </p>
         <p>
+            <form:hidden path="id" />
             <input type="submit">
         </p>
     </form:form>
