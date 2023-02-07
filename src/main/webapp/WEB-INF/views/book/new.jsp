@@ -5,7 +5,7 @@
     <title>Book form</title>
 </head>
 <body>
-    <form:form method="post" action="/book/form/save" modelAttribute="book">
+    <form:form method="post" action="/book/save" modelAttribute="book">
         <p>
             <form:label path="title">Title</form:label>
             <form:input path="title"/>

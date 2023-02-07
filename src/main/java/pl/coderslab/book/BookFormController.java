@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherDao;
 
@@ -21,18 +20,24 @@ public class BookFormController {
         this.publisherDao = publisherDao;
     }
 
-    @GetMapping("/book/form/new")
-    public String saveBookForm(Model model) {
+    @GetMapping("/book/new")
+    public String newBook(Model model) {
         Book book = new Book();
         model.addAttribute("book", book);
         return "/book/new";
     }
 
-    @PostMapping("/book/form/save")
-    @ResponseBody
-    public String saveBookForm(Book book) {
+    @PostMapping("/book/save")
+    public String saveBook(Book book) {
         bookDao.save(book);
-        return book.toString();
+        return "redirect:/book/list";
+    }
+
+    @GetMapping("/book/list")
+    public String listBooks(Model model) {
+        List<Book> books = bookDao.findAll();
+        model.addAttribute("books", books);
+        return "/book/list";
     }
 
     @ModelAttribute("publishers")
