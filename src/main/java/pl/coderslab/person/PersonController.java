@@ -1,6 +1,7 @@
 package pl.coderslab.person;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,10 @@ public class PersonController {
     }
 
     @GetMapping("/person/add")
-    public String addPersonForm() {
+    public String addPersonForm(Model model) {
+        Person predefinedPerson = new Person();
+        predefinedPerson.setLogin("chrosciu");
+        model.addAttribute("person", predefinedPerson);
         return "/person/add";
     }
 

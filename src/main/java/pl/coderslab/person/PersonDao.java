@@ -15,4 +15,8 @@ public class PersonDao {
     public void save(Person person) {
         entityManager.persist(person);
     }
+
+    public Person findById(long id) {
+        return entityManager.find(Person.class, id);
+    }
 }
