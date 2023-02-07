@@ -29,6 +29,14 @@
             <form:checkbox id="mailingList" path="mailingList"/>
         </p>
         <p>
+            <label for="country">Country</label>
+            <form:select path="country" items="${countries}" />
+        </p>
+        <p>
+            <label for="programmingSkills">Programming skills</label>
+            <form:select path="programmingSkills" items="${programmingSkills}" multiple="true" />
+        </p>
+        <p>
             <input type="submit">
         </p>
     </form:form>

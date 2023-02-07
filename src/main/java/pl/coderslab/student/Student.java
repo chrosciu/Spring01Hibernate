@@ -1,11 +1,15 @@
 package pl.coderslab.student;
 
+import java.util.List;
+
 public class Student {
     private String firstName;
     private String lastName;
     private String gender;
     private String notes;
     private boolean mailingList;
+    private String country;
+    private List<String> programmingSkills;
 
     public String getFirstName() {
         return firstName;
@@ -47,6 +51,22 @@ public class Student {
         this.mailingList = mailingList;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public List<String> getProgrammingSkills() {
+        return programmingSkills;
+    }
+
+    public void setProgrammingSkills(List<String> programmingSkills) {
+        this.programmingSkills = programmingSkills;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -55,6 +75,8 @@ public class Student {
                 ", gender='" + gender + '\'' +
                 ", notes='" + notes + '\'' +
                 ", mailingList=" + mailingList +
+                ", country='" + country + '\'' +
+                ", programmingSkills=" + programmingSkills +
                 '}';
     }
 }
