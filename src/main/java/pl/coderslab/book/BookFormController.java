@@ -40,6 +40,36 @@ public class BookFormController {
         return "/book/list";
     }
 
+    @GetMapping("/book/edit/{id}")
+    public String editBook(Model model) {
+        //fetch book by id
+        //pass book to model
+        //return view
+        return null;
+    }
+
+    @PostMapping("/book/update")
+    public String updateBook(Book book) {
+        //update book
+        return "redirect:/book/list";
+    }
+
+    @GetMapping("/book/delete/{id}")
+    public String deleteBookForm(Model model) {
+        //pass id to model
+        //display form with OK and Cancel
+        //Cancel - link to book list
+        //OK - post to delete action
+        return null;
+    }
+
+    @PostMapping("/book/delete/{id}")
+    public String deleteBook() {
+        //find book by id
+        //delete book
+        return "redirect:/book/list";
+    }
+
     @ModelAttribute("publishers")
     public List<Publisher> publishers() {
         return publisherDao.findAll();
