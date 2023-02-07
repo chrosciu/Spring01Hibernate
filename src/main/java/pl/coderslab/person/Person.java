@@ -16,6 +16,9 @@ public class Person {
     String login;
     String password;
     String email;
+    String language;
+    boolean vip;
+    String sex;
 
     public Long getId() {
         return id;
@@ -45,6 +48,30 @@ public class Person {
         this.email = email;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -52,6 +79,8 @@ public class Person {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", language='" + language + '\'' +
+                ", vip=" + vip +
                 '}';
     }
 }
