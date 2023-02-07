@@ -15,6 +15,20 @@
             <form:input path="lastName"/>
         </p>
         <p>
+            <label for="male">Male</label>
+            <form:radiobutton id="male" path="gender" value="M"/>
+            <label for="female">Female</label>
+            <form:radiobutton id="female" path="gender" value="F"/>
+        </p>
+        <p>
+            <label for="notes">Notes</label>
+            <form:textarea path="notes" rows="3" cols="20"/>
+        </p>
+        <p>
+            <label for="mailingList">Mailing list</label>
+            <form:checkbox id="mailingList" path="mailingList"/>
+        </p>
+        <p>
             <input type="submit">
         </p>
     </form:form>
