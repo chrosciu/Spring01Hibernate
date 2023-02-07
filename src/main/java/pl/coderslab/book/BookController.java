@@ -10,6 +10,8 @@ import pl.coderslab.author.AuthorDao;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherDao;
 
+import java.util.List;
+
 @Controller
 public class BookController {
     private final BookDao bookDao;
@@ -62,5 +64,19 @@ public class BookController {
         book.setTitle(title);
         bookDao.update(book);
         return book.toString();
+    }
+
+    @GetMapping("/book/all")
+    @ResponseBody
+    public String getAllBooks() {
+        List<Book> books = bookDao.findAll();
+        return books.toString();
+    }
+
+    @GetMapping("/book/rating/{rating}")
+    @ResponseBody
+    public String getAllBooksByRating(@PathVariable int rating) {
+        List<Book> books = bookDao.findAllByRating(rating);
+        return books.toString();
     }
 }
