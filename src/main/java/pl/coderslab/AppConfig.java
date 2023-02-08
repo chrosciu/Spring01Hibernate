@@ -17,8 +17,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.coderslab.author.AuthorConverter;
+import pl.coderslab.author.AuthorRepository;
+import pl.coderslab.category.CategoryConverter;
+import pl.coderslab.category.CategoryRepository;
 import pl.coderslab.publisher.PublisherConverter;
-import pl.coderslab.publisher.PublisherDao;
+import pl.coderslab.publisher.PublisherRepository;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
@@ -31,7 +35,11 @@ import java.util.Locale;
 @EnableJpaRepositories(basePackages = "pl.coderslab")
 public class AppConfig implements WebMvcConfigurer {
     @Autowired
-    private PublisherDao publisherDao;
+    private PublisherRepository publisherRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -65,12 +73,24 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public PublisherConverter publisherConverter() {
-        return new PublisherConverter(publisherDao);
+        return new PublisherConverter(publisherRepository);
+    }
+
+    @Bean
+    public AuthorConverter authorConverter() {
+        return new AuthorConverter(authorRepository);
+    }
+
+    @Bean
+    public CategoryConverter categoryConverter() {
+        return new CategoryConverter(categoryRepository);
     }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(publisherConverter());
+        registry.addConverter(authorConverter());
+        registry.addConverter(categoryConverter());
     }
 
     @Bean

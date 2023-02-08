@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.author.Author;
-import pl.coderslab.author.AuthorDao;
+import pl.coderslab.author.AuthorRepository;
 import pl.coderslab.category.CategoryRepository;
 import pl.coderslab.publisher.Publisher;
-import pl.coderslab.publisher.PublisherDao;
+import pl.coderslab.publisher.PublisherRepository;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -24,14 +24,16 @@ public class BookController {
 
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
-    private final PublisherDao publisherDao;
-    private final AuthorDao authorDao;
+    private final PublisherRepository publisherRepository;
+    private final AuthorRepository authorRepository;
     private final Validator validator;
-    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository,
+                          PublisherRepository publisherRepository, AuthorRepository authorRepository,
+                          Validator validator) {
         this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
-        this.publisherDao = publisherDao;
-        this.authorDao = authorDao;
+        this.publisherRepository = publisherRepository;
+        this.authorRepository = authorRepository;
         this.validator = validator;
     }
 
@@ -40,9 +42,9 @@ public class BookController {
     public String addBook() {
         Publisher publisher = new Publisher();
         publisher.setName("Janusz Edition Ltd.");
-        publisherDao.save(publisher);
-        Author author1 = authorDao.findById(1);
-        Author author2 = authorDao.findById(2);
+        publisherRepository.save(publisher);
+        Author author1 = authorRepository.findById(1L).get();
+        Author author2 = authorRepository.findById(2L).get();
         Book book = new Book();
         book.setTitle("Thinking in Java");
         book.setDescription("Definitely worth reading");
@@ -109,7 +111,7 @@ public class BookController {
     public String getAllBooksByCategory() {
 //        Category category = categoryRepository.getOne(3L);
         List<Book> books = categoryRepository.findById(1L)
-                .map(c -> bookRepository.findByCategory(c))
+                .map(bookRepository::findByCategory)
                 .orElse(List.of());
         return books.toString();
     }

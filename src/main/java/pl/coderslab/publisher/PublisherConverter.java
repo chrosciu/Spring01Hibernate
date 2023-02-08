@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PublisherConverter implements Converter<String, Publisher> {
-    private final PublisherDao publisherDao;
+    private final PublisherRepository publisherRepository;
 
-    public PublisherConverter(PublisherDao publisherDao) {
-        this.publisherDao = publisherDao;
+    public PublisherConverter(PublisherRepository publisherRepository) {
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
     public Publisher convert(String source) {
-        return publisherDao.findById(Long.parseLong(source));
+        return publisherRepository.findById(Long.parseLong(source)).orElse(null);
     }
 }
