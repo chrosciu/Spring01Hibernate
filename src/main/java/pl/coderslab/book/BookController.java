@@ -21,13 +21,11 @@ import java.util.Set;
 public class BookController {
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
-    private final BookDao bookDao;
     private final BookRepository bookRepository;
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
     private final Validator validator;
-    public BookController(BookDao bookDao, BookRepository bookRepository, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
-        this.bookDao = bookDao;
+    public BookController(BookRepository bookRepository, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
         this.bookRepository = bookRepository;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
@@ -85,7 +83,7 @@ public class BookController {
     @GetMapping("/book/rating/{rating}")
     @ResponseBody
     public String getAllBooksByRating(@PathVariable int rating) {
-        List<Book> books = bookDao.findAllByRating(rating);
+        List<Book> books = bookRepository.findByRating(rating);
         return books.toString();
     }
 
