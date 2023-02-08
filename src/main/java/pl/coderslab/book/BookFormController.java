@@ -2,12 +2,14 @@ package pl.coderslab.book;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherDao;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -28,7 +30,10 @@ public class BookFormController {
     }
 
     @PostMapping("/book/save")
-    public String saveBook(Book book) {
+    public String saveBook(@Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/book/new";
+        }
         bookDao.save(book);
         return "redirect:/book/list";
     }

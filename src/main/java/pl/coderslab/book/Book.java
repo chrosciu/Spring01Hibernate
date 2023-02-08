@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class Book {
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    @NotEmpty
+//    @NotEmpty
     List<Author> authors = new ArrayList<>();
 
     public Long getId() {
