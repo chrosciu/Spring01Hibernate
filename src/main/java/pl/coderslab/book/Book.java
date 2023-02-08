@@ -12,6 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +29,24 @@ public class Book {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     @Column(length = 50)
+    @Size(min = 5)
     private String title;
+    @Min(1)
+    @Max(10)
     private int rating;
+    @Size(max = 600)
     private String description;
+    @Min(2)
+    private int pages;
     @ManyToOne
     @JoinColumn(name = "publisher_id")
+    @NotNull
     Publisher publisher;
     @ManyToMany
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @NotEmpty
     List<Author> authors = new ArrayList<>();
 
     public Long getId() {
@@ -64,6 +77,14 @@ public class Book {
         this.description = description;
     }
 
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
     public Publisher getPublisher() {
         return publisher;
     }
@@ -87,8 +108,8 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", pages=" + pages +
                 ", publisher=" + publisher +
-//                ", authors=" + authors +
                 '}';
     }
 }
