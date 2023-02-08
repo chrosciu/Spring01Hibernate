@@ -14,12 +14,12 @@ import java.util.List;
 
 @Controller
 public class BookFormController {
-    private final BookDao bookDao;
     private final PublisherDao publisherDao;
+    private final BookRepository bookRepository;
 
-    public BookFormController(BookDao bookDao, PublisherDao publisherDao) {
-        this.bookDao = bookDao;
+    public BookFormController(PublisherDao publisherDao, BookRepository bookRepository) {
         this.publisherDao = publisherDao;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/book/new")
@@ -34,13 +34,13 @@ public class BookFormController {
         if (bindingResult.hasErrors()) {
             return "/book/new";
         }
-        bookDao.save(book);
+        bookRepository.save(book);
         return "redirect:/book/list";
     }
 
     @GetMapping("/book/list")
     public String listBooks(Model model) {
-        List<Book> books = bookDao.findAll();
+        List<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
         return "/book/list";
     }

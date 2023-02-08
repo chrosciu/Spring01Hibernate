@@ -14,29 +14,6 @@ public class BookDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void save(Book book) {
-        entityManager.persist(book);
-    }
-
-    public Book findById(long id) {
-        return entityManager.find(Book.class, id);
-    }
-
-    public void delete(Book book) {
-        Book persistedBook = entityManager.contains(book) ? book : entityManager.merge(book);
-        entityManager.remove(persistedBook);
-    }
-
-    public void update(Book book) {
-        entityManager.merge(book);
-    }
-
-    public List<Book> findAll() {
-        TypedQuery<Book> query = entityManager.createQuery("select b from Book b", Book.class);
-        List<Book> books = query.getResultList();
-        return books;
-    }
-
     public List<Book> findAllByRating(int rating) {
         TypedQuery<Book> query = entityManager.createQuery(
                 "select b from Book b where b.rating = :rating", Book.class);

@@ -22,11 +22,13 @@ public class BookController {
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     private final BookDao bookDao;
+    private final BookRepository bookRepository;
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
     private final Validator validator;
-    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
+    public BookController(BookDao bookDao, BookRepository bookRepository, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
         this.bookDao = bookDao;
+        this.bookRepository = bookRepository;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
         this.validator = validator;
@@ -46,38 +48,37 @@ public class BookController {
         book.setPublisher(publisher);
         book.getAuthors().add(author1);
         book.getAuthors().add(author2);
-        bookDao.save(book);
+        bookRepository.save(book);
         return book.toString();
     }
 
     @RequestMapping("/book/get/{id}")
     @ResponseBody
     public String getBook(@PathVariable long id) {
-        Book book = bookDao.findById(id);
+        Book book = bookRepository.getOne(id);
         return book.toString();
     }
 
     @RequestMapping("/book/delete/{id}")
     @ResponseBody
     public String deleteBook(@PathVariable long id) {
-        Book book = bookDao.findById(id);
-        bookDao.delete(book);
+        bookRepository.deleteById(id);
         return "deleted";
     }
 
     @RequestMapping("/book/update/{id}/{title}")
     @ResponseBody
     public String updateBook(@PathVariable long id, @PathVariable String title) {
-        Book book = bookDao.findById(id);
+        Book book = bookRepository.getOne(id);
         book.setTitle(title);
-        bookDao.update(book);
+        bookRepository.save(book);
         return book.toString();
     }
 
     @GetMapping("/book/all")
     @ResponseBody
     public String getAllBooks() {
-        List<Book> books = bookDao.findAll();
+        List<Book> books = bookRepository.findAll();
         return books.toString();
     }
 
