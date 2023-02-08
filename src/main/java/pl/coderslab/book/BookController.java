@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.author.Author;
 import pl.coderslab.author.AuthorDao;
+import pl.coderslab.category.CategoryRepository;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherDao;
 
@@ -22,11 +23,13 @@ public class BookController {
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
     private final Validator validator;
-    public BookController(BookRepository bookRepository, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
         this.validator = validator;
@@ -84,6 +87,30 @@ public class BookController {
     @ResponseBody
     public String getAllBooksByRating(@PathVariable int rating) {
         List<Book> books = bookRepository.findByRating(rating);
+        return books.toString();
+    }
+
+    @GetMapping("/book/title/{title}")
+    @ResponseBody
+    public String getAllBooksByTitle(@PathVariable String title) {
+        List<Book> books = bookRepository.findByTitle(title);
+        return books.toString();
+    }
+
+    @GetMapping("/book/category/{categoryId}")
+    @ResponseBody
+    public String getAllBooksByCategoryId(@PathVariable long categoryId) {
+        List<Book> books = bookRepository.findByCategoryId(categoryId);
+        return books.toString();
+    }
+
+    @GetMapping("/book/category")
+    @ResponseBody
+    public String getAllBooksByCategory() {
+//        Category category = categoryRepository.getOne(3L);
+        List<Book> books = categoryRepository.findById(1L)
+                .map(c -> bookRepository.findByCategory(c))
+                .orElse(List.of());
         return books.toString();
     }
 

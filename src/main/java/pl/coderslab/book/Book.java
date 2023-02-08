@@ -1,6 +1,7 @@
 package pl.coderslab.book;
 
 import pl.coderslab.author.Author;
+import pl.coderslab.category.Category;
 import pl.coderslab.publisher.Publisher;
 
 import javax.persistence.Column;
@@ -47,9 +48,15 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
 //    @NotEmpty
     List<Author> authors = new ArrayList<>();
+    @ManyToOne
+    private Category category;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -100,6 +107,14 @@ public class Book {
         this.authors = authors;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -109,6 +124,7 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", pages=" + pages +
                 ", publisher=" + publisher +
+                ", category=" + category +
                 '}';
     }
 }
