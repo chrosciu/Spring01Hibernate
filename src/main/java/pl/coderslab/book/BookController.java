@@ -116,6 +116,13 @@ public class BookController {
         return books.toString();
     }
 
+    @GetMapping("/book/increase/{id}")
+    @ResponseBody
+    public String increaseBookRating(@PathVariable long id) {
+        int updatedRows = bookRepository.increaseRating(id);
+        return String.valueOf(updatedRows);
+    }
+
     @GetMapping("/book/validate")
     @ResponseBody
     public String validate() {
